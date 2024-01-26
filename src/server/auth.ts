@@ -4,8 +4,9 @@ import {
   type DefaultSession,
   type NextAuthOptions,
 } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
 import GithubProvider from "next-auth/providers/github";
+import NextAuth from "next-auth";
+
 import { env } from "@/env";
 import { db } from "@/server/db";
 
@@ -69,6 +70,9 @@ export const authOptions: NextAuthOptions = {
   ],
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };
 /**
  * Wrapper for `getServerSession` so that you don't need to import the `authOptions` in every file.
  *
